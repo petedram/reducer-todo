@@ -1,4 +1,5 @@
-export const initialState = [
+export const initialState = {
+todos:[
     {
         item: 'Learn about reducers',
         completed: false,
@@ -9,7 +10,9 @@ export const initialState = [
     completed: true,
     id: 3892987581
     }
-];
+]
+};
+
 
 
 export const todoReducer = (state, action) => {
@@ -23,8 +26,25 @@ export const todoReducer = (state, action) => {
                     id: Date.now()
                 }
             ]
+        case 'TOGGLE_COMPLETE':
+            return {
+            todos: state.todos.map(todo => {
+                console.log('all', todo.id, action.payload);
+                if (Number(action.payload) === todo.id) {
+                    console.log('found, changing to', !todo.completed)
+                    return {
+                        ...todo,
+                        completed: !todo.completed
+                    }
+                } else {
+                    console.log('else state', state);
+                    return state
+                }
+
+            })
+        }
         default:
             return state
-    }
+    };
 };
 
