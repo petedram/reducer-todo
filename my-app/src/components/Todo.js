@@ -8,12 +8,16 @@ const Todo = () => {
 
     const handleChanges = e => {
         setNewTodo(e.target.value);
-        console.log(newTodo);
     };
+
 
     const handleUpdateTodo = e => {
         dispatch({ type: "UPDATE_TODO", payload: newTodo });
         setNewTodo('');
+    };
+
+    const handleUpdateClear = e => {
+        dispatch({ type: "CLEAR_TODO" });
     };
 
     // const handleToggle = e => {
@@ -34,9 +38,11 @@ const Todo = () => {
                 onChange={handleChanges}
             />
             <button onClick={handleUpdateTodo}>Add Todo</button>
-            {console.log(state)}
+            <button onClick={handleUpdateClear}>Clear complete</button>
 
-            {state.map(item => (<h1><input type="checkbox" id={item.id} checked={item.completed} onChange={() => dispatch({ type: 'TOGGLE_COMPLETE', payload: item.id })}></input> {item.item}</h1>))}
+            {console.log('Todo state', state)}
+
+            {state.todos.map(todo => (<h1><input type="checkbox" id={todo.id} checked={todo.completed} onChange={() => dispatch({ type: 'TOGGLE_COMPLETE', payload: todo.id })}></input> {todo.item}</h1>))}
         </div>
     );
 };
